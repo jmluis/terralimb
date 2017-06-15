@@ -7,6 +7,10 @@ namespace TerraLimb
     {
         public byte ID;
         public string Name;
+        public override string ToString()
+        {
+            return Name;
+        }
     }
     public struct Item
     {
@@ -21,7 +25,7 @@ namespace TerraLimb
             }
             set
             {
-                if (value < 0 || value == 0xFF || value > Constants.PrefixNames.Count)
+                if (value < 0 || value == 0xFF || value > Constants.Prefixes.Count)
                     prefix = 0;
                 else
                     prefix = value;
@@ -94,9 +98,12 @@ namespace TerraLimb
             return ItemName;
         }
 
-        public System.Drawing.Color GetColor()
+        public System.Drawing.Color? GetColor()
         {
-            return System.Drawing.Color.FromArgb(Color[0], Color[1], Color[2], Color[3]);
+            if (Color != null)
+                return System.Drawing.Color.FromArgb(Color[0], Color[1], Color[2], Color[3]);
+            else
+                return null;
         }
     }
 }

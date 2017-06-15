@@ -29,8 +29,13 @@ namespace TerraLimb
                 BuffTime = 0;
             else
                 BuffTime = time;
-            BuffName = Constants.BuffNames[BuffID];
-            BuffDescription = Constants.BuffTips[BuffID];
+            BuffName = Constants.Buffs[BuffID].BuffName;
+            BuffDescription = Constants.Buffs[BuffID].BuffDescription;
+        }
+
+        public override string ToString()
+        {
+            return BuffName;
         }
     }
 }
