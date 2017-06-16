@@ -5,11 +5,17 @@ namespace TerraLimb
 {
     public struct Prefix
     {
+        [DefaultValue(0)]
         public byte ID;
+        [DefaultValue("(none)")]
         public string Name;
         public override string ToString()
         {
-            return Name;
+            if (Name != null)
+                return Name;
+            if (Constants.Loaded)
+                return Constants.Prefixes[ID].Name;
+            return string.Empty;
         }
     }
     public struct Item
@@ -77,9 +83,9 @@ namespace TerraLimb
                     stack = value;
             }
         }
-        [DefaultValue(null)]
+        [DefaultValue("")]
         public string Nick;
-
+        [DefaultValue("(none)")]
         public string ItemName { get; set; }
         // ARGB
         [DefaultValue(null)]
@@ -95,7 +101,11 @@ namespace TerraLimb
 
         public override string ToString()
         {
-            return ItemName;
+            if (ItemName != null)
+                return ItemName;
+            if (Constants.Loaded)
+                return Constants.Items[ItemID].ItemName;
+            return string.Empty;
         }
 
         public System.Drawing.Color? GetColor()

@@ -11,9 +11,9 @@ namespace TerraLimb
         [DefaultValue(0)]
         public int Slot;
 
-        [DefaultValue(null)]
+        [DefaultValue("(none)")]
         public string BuffName;
-        [DefaultValue(null)]
+        [DefaultValue("(none)")]
         public string BuffDescription;
 
         public Buff()
@@ -35,7 +35,11 @@ namespace TerraLimb
 
         public override string ToString()
         {
-            return BuffName;
+            if (BuffName != null)
+                return BuffName;
+            if (Constants.Loaded)
+                return Constants.Buffs[BuffID].BuffName;
+            return string.Empty;
         }
     }
 }

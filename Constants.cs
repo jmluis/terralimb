@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
-using System.IO;
 
 namespace TerraLimb
 {
@@ -15,11 +13,11 @@ namespace TerraLimb
         public static Dictionary<int, Prefix> Prefixes;
         public static Dictionary<int, Buff> Buffs;
 
-        public static void Initialize(string path)
+        public static void Initialize(string ItemJson, string PrefixJson, string BuffJson)
         {
-            Items = JsonConvert.DeserializeObject<Dictionary<int, Item>>(File.ReadAllText(path + @"\items.json"));
-            Prefixes = JsonConvert.DeserializeObject<Dictionary<int, Prefix>>(File.ReadAllText(path + @"\prefixes.json"));
-            Buffs = JsonConvert.DeserializeObject<Dictionary<int, Buff>>(File.ReadAllText(path + @"\buffs.json"));
+            Items = JsonConvert.DeserializeObject<Dictionary<int, Item>>(ItemJson);
+            Prefixes = JsonConvert.DeserializeObject<Dictionary<int, Prefix>>(PrefixJson);
+            Buffs = JsonConvert.DeserializeObject<Dictionary<int, Buff>>(BuffJson);
             Loaded = true;
         }
     }
