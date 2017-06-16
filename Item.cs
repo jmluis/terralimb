@@ -18,7 +18,7 @@ namespace TerraLimb
             return string.Empty;
         }
     }
-    public struct Item
+    public class Item
     {
         [DefaultValue(0)]
         private byte prefix;
@@ -86,7 +86,7 @@ namespace TerraLimb
         [DefaultValue("")]
         public string Nick;
         [DefaultValue("(none)")]
-        public string ItemName { get; set; }
+        public string ItemName;
         // ARGB
         [DefaultValue(null)]
         public int[] Color { get; set; }
@@ -98,6 +98,7 @@ namespace TerraLimb
         public int Index { get; set; }
 
         public int MaxStack { get; set; }
+
 
         public override string ToString()
         {
