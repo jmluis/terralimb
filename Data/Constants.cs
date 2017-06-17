@@ -15,7 +15,7 @@ namespace TerraLimb
     public static class Constants
     {
         public static Package CurrentPackage;
-        public static bool Loaded = false;
+        public static bool Loaded;
 
         public static Dictionary<int, Item> Items;
         public static Dictionary<int, Prefix> Prefixes;

@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel;
+using System.Drawing;
 
 namespace TerraLimb
 {
@@ -109,12 +110,11 @@ namespace TerraLimb
             return string.Empty;
         }
 
-        public System.Drawing.Color? GetColor()
+        public Color? GetColor()
         {
             if (Color != null)
                 return System.Drawing.Color.FromArgb(Color[0], Color[1], Color[2], Color[3]);
-            else
-                return null;
+            return null;
         }
     }
 }
