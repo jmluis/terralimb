@@ -11,9 +11,9 @@ namespace TerraLimb
         [DefaultValue(0)]
         public int Slot;
 
-        [DefaultValue("(none)")]
+        [DefaultValue("")]
         public string BuffName;
-        [DefaultValue("(none)")]
+        [DefaultValue("")]
         public string BuffDescription;
 
         public Buff()

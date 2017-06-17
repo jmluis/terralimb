@@ -6,9 +6,9 @@ namespace TerraLimb
 {
     public struct Prefix
     {
-        [DefaultValue(0)]
+        [DefaultValue(0xFF)]
         public byte ID;
-        [DefaultValue("(none)")]
+        [DefaultValue("")]
         public string Name;
         public override string ToString()
         {
@@ -19,8 +19,10 @@ namespace TerraLimb
             return string.Empty;
         }
     }
-    public class Item
+    public struct Item
     {
+
+        #region Prefixes
         [DefaultValue(0)]
         private byte prefix;
         [DefaultValue(0)]
@@ -38,11 +40,50 @@ namespace TerraLimb
                     prefix = value;
             }
         }
+        #endregion
+
+        #region  Names
+        [DefaultValue("")]
+        public string Nick;
+        [DefaultValue("")]
+        public string ItemName;
+        #endregion
+
+        #region Stack
         [DefaultValue(0)]
         private int stack;
+        [DefaultValue(0)]
+        public int Stack
+        {
+            get { return stack; }
+            set
+            {
+                if (value < 0)
+                    stack = 0;
+                else
+                    stack = value;
+            }
+        }
+        public int MaxStack { get; set; }
+
+        #endregion
+
+        #region Properties
+
+        [DefaultValue(-1)]
+        public int ItemID;
+
+        [DefaultValue(0)]
+        public int Index { get; set; }
 
         public bool IsFavorite { get; set; }
+        // ARGB
+        [DefaultValue(null)]
+        public int[] Color { get; set; }
 
+        #endregion
+
+        #region CharacterSlot
         [DefaultValue(-1)]
         public sbyte ShoeSlot { get; set; }
         [DefaultValue(-1)]
@@ -71,36 +112,40 @@ namespace TerraLimb
         public int BodySlot { get; set; }
         [DefaultValue(-1)]
         public int LegSlot { get; set; }
+        #endregion
 
-        [DefaultValue(0)]
-        public int Stack
+        public static implicit operator Item(int id)
         {
-            get { return stack; }
-            set
+            return new Item()
             {
-                if (value < 0)
-                    stack = 0;
-                else
-                    stack = value;
-            }
+                BackSlot = -1,
+                BalloonSlot = -1,
+                BodySlot = -1,
+                FaceSlot = -1,
+                FrontSlot = -1,
+                HandOffSlot = -1,
+                HandOnSlot = -1,
+                HeadSlot = -1,
+                LegSlot = -1,
+                NeckSlot = -1,
+                ShieldSlot = -1,
+                ShoeSlot = -1,
+                WaistSlot = -1,
+                WingSlot = -1,
+
+                Color = new[] { 0, 0, 0 },
+                IsFavorite = false,
+                Index = 0,
+                ItemID = id,
+                ItemName = "(none)",
+                MaxStack = 0,
+                Nick = "",
+
+                Prefix = 0,
+
+                Stack = 0
+            };
         }
-        [DefaultValue("")]
-        public string Nick;
-        [DefaultValue("(none)")]
-        public string ItemName;
-        // ARGB
-        [DefaultValue(null)]
-        public int[] Color { get; set; }
-
-        [DefaultValue(-1)]
-        public int ItemID;
-
-        [DefaultValue(0)]
-        public int Index { get; set; }
-
-        public int MaxStack { get; set; }
-
-
         public override string ToString()
         {
             if (ItemName != null)

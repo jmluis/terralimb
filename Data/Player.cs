@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using RollbarDotNet;
 using Exception = System.Exception;
 
 namespace TerraLimb
@@ -43,8 +42,7 @@ namespace TerraLimb
         /// <summary>
         /// What exactly are these guys doing
         /// </summary>
-        public BitArray HideVisual { get; set; }
-        public BitArray HideVisual2 { get; set; }
+        public bool[] HideVisual { get; set; }
         public BitArray HideMisc { get; set; }
 
         public byte[] HideBytes = new byte[3];
@@ -195,7 +193,7 @@ namespace TerraLimb
                             player.MagicNumber = reader.ReadUInt64();
                             if (((long)player.MagicNumber & 72057594037927935L) != 27981915666277746L)
                                 return null;
-                            player.FileType = (byte)(player.MagicNumber >> 56 & (ulong)byte.MaxValue);
+                            player.FileType = (byte)(player.MagicNumber >> 56 & byte.MaxValue);
                             if (player.FileType != 3)
                                 return null;
                             player.Revision = reader.ReadUInt32(); // Useless metadata stuff in player files, for now? Only used in maps
@@ -211,9 +209,10 @@ namespace TerraLimb
                     File.Delete(datFile);
                 }
             }
-            catch
+            catch (Exception e)
             {
                 flag = true;
+                throw e;
             }
             if (flag)
             {
@@ -265,7 +264,7 @@ namespace TerraLimb
                             MagicNumber = reader.ReadUInt64();
                             if (((long)MagicNumber & 72057594037927935L) != 27981915666277746L)
                                 return ErrorCode.Corrupted;
-                            FileType = (byte)(MagicNumber >> 56 & (ulong)byte.MaxValue);
+                            FileType = (byte)(MagicNumber >> 56 & byte.MaxValue);
                             if (FileType != 3)
                                 return ErrorCode.Corrupted;
 
@@ -284,9 +283,6 @@ namespace TerraLimb
                             HideMisc = new BitArray((byte)reader.ReadByte());
                              */
                             HideBytes = reader.ReadBytes(3); // Eat these three bytes and save them later
-
-                            /// TODO:
-                            ///     Figure out how Gender works in 1.3
                             SkinVariant = reader.ReadByte();
                             HP = reader.ReadInt32();
                             MaxHP = reader.ReadInt32();
@@ -561,8 +557,8 @@ namespace TerraLimb
             }
             catch (Exception e)
             {
-                Rollbar.Report(e);
                 flag = true;
+                throw e;
             }
 
             if (flag)
@@ -607,7 +603,7 @@ namespace TerraLimb
                         // Metadata stuff
                         writer.Write(MagicNumber);
                         writer.Write(Revision);
-                        writer.Write((ulong)Convert.ToUInt64(IsFavorite));
+                        writer.Write(Convert.ToUInt64(IsFavorite));
 
                         writer.Write(Name);
                         writer.Write(Difficulty);
