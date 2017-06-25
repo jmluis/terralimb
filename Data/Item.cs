@@ -46,7 +46,7 @@ namespace TerraLimb
         [DefaultValue("")]
         public string Nick;
         [DefaultValue("")]
-        public string ItemName;
+        public string ItemName { get; set; }
         #endregion
 
         #region Stack
