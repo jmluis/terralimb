@@ -4,17 +4,15 @@ namespace TerraLimb
 {
     public class Buff
     {
-        [DefaultValue(-1)]
-        public int BuffID;
-        [DefaultValue(0)]
-        public int BuffTime;
-        [DefaultValue(0)]
-        public int Slot;
+        [DefaultValue("")] public string BuffDescription;
 
-        [DefaultValue("")]
-        public string BuffName;
-        [DefaultValue("")]
-        public string BuffDescription;
+        [DefaultValue(-1)] public int BuffID;
+
+        [DefaultValue("")] public string BuffName;
+
+        [DefaultValue(0)] public int BuffTime;
+
+        [DefaultValue(0)] public int Slot;
 
         public Buff()
         {
@@ -43,4 +41,3 @@ namespace TerraLimb
         }
     }
 }
-

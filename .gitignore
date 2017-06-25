@@ -203,3 +203,4 @@ $RECYCLE.BIN/
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
 Properties/AssemblyCopyright.cs
+*.DotSettings
